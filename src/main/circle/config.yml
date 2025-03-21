@@ -1,0 +1,20 @@
+
+  # Stacks detected: deps:java:.,tool:gradle:
+  version: 2.1
+  jobs:
+    gradle-build:
+      docker:
+        - image: cimg/openjdk:17.0
+      working_directory: ~/project
+      steps:
+        - checkout
+        - run:
+            name: Add Permission
+            command: chmod +x gradlew
+        - run:
+            name: Gradle Build
+            command: ./gradlew bootJar
+        - persist_to_workspace:
+            root:
+            pats:
+              - build/libs/*.jar
